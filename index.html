@@ -8,271 +8,273 @@
 
 <style>
 *{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
+box-sizing:border-box;
+margin:0;
+padding:0;
 }
 
 body{
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  background:#f5f6fb;
-  color:#18181b;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+background:#f5f6fb;
+color:#18181b;
 }
 
 .container{
-  max-width:700px;
-  margin:auto;
-  padding:20px 15px 50px;
+max-width:700px;
+margin:auto;
+padding:20px 15px 50px;
 }
 
 header{
-  text-align:center;
-  padding:25px 0;
+text-align:center;
+padding:25px 0;
 }
 
 .logo{
-  width:58px;
-  height:58px;
-  margin:auto;
-  border-radius:18px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:linear-gradient(135deg,#6c63ff,#5148e8);
-  color:white;
-  font-size:22px;
-  font-weight:800;
-  box-shadow:0 10px 25px rgba(92,82,220,.25);
+width:58px;
+height:58px;
+margin:auto;
+border-radius:18px;
+display:flex;
+align-items:center;
+justify-content:center;
+background:linear-gradient(135deg,#6c63ff,#5148e8);
+color:white;
+font-size:22px;
+font-weight:800;
+box-shadow:0 10px 25px rgba(92,82,220,.25);
 }
 
 header h1{
-  margin-top:12px;
-  font-size:27px;
+margin-top:12px;
+font-size:27px;
 }
 
 header p{
-  margin-top:5px;
-  color:#777;
-  font-size:14px;
+margin-top:5px;
+color:#777;
+font-size:14px;
 }
 
 .card{
-  background:white;
-  border-radius:20px;
-  padding:20px;
-  margin-bottom:16px;
-  box-shadow:0 8px 30px rgba(0,0,0,.06);
+background:white;
+border-radius:20px;
+padding:20px;
+margin-bottom:16px;
+box-shadow:0 8px 30px rgba(0,0,0,.06);
 }
 
 .card h2{
-  font-size:18px;
-  margin-bottom:15px;
+font-size:18px;
+margin-bottom:15px;
 }
 
 input,select{
-  width:100%;
-  padding:13px;
-  border:1px solid #ddd;
-  border-radius:12px;
-  font-size:15px;
-  outline:none;
-  background:#fafafa;
+width:100%;
+padding:13px;
+border:1px solid #ddd;
+border-radius:12px;
+font-size:15px;
+outline:none;
+background:#fafafa;
 }
 
 input:focus,select:focus{
-  border-color:#655ce8;
-  background:white;
+border-color:#655ce8;
+background:white;
 }
 
 button{
-  border:none;
-  border-radius:12px;
-  padding:12px 16px;
-  font-weight:700;
-  cursor:pointer;
+border:none;
+border-radius:12px;
+padding:12px 16px;
+font-weight:700;
+cursor:pointer;
 }
 
 .primary{
-  background:#635bff;
-  color:white;
+background:#635bff;
+color:white;
 }
 
 .secondary{
-  background:#f0efff;
-  color:#5148d9;
+background:#f0efff;
+color:#5148d9;
 }
 
 .danger{
-  background:#fff0f0;
-  color:#d33;
+background:#fff0f0;
+color:#d33;
 }
 
 .row{
-  display:flex;
-  gap:9px;
+display:flex;
+gap:9px;
 }
 
 .row input{
-  flex:1;
+flex:1;
 }
 
 .row button{
-  white-space:nowrap;
+white-space:nowrap;
 }
 
 .people{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  margin-top:15px;
+display:flex;
+flex-wrap:wrap;
+gap:8px;
+margin-top:15px;
 }
 
 .person{
-  background:#f0efff;
-  color:#5148d9;
-  padding:8px 12px;
-  border-radius:50px;
-  font-size:14px;
-  font-weight:600;
+background:#f0efff;
+color:#5148d9;
+padding:8px 12px;
+border-radius:50px;
+font-size:14px;
+font-weight:600;
 }
 
 .person span{
-  margin-left:7px;
-  cursor:pointer;
+margin-left:7px;
+cursor:pointer;
 }
 
 .stats{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:10px;
 }
 
 .stat{
-  background:#f7f7fa;
-  padding:15px;
-  border-radius:15px;
+background:#f7f7fa;
+padding:15px;
+border-radius:15px;
 }
 
 .stat small{
-  color:#777;
-  display:block;
-  margin-bottom:5px;
+color:#777;
+display:block;
+margin-bottom:5px;
 }
 
 .stat strong{
-  font-size:19px;
+font-size:19px;
 }
 
 .expense{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  padding:15px 0;
-  border-bottom:1px solid #eee;
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+padding:15px 0;
+border-bottom:1px solid #eee;
 }
 
 .expense:last-child{
-  border-bottom:none;
+border-bottom:none;
 }
 
 .expense-title{
-  font-weight:700;
+font-weight:700;
 }
 
 .expense-info{
-  font-size:12px;
-  color:#777;
-  margin-top:4px;
+font-size:12px;
+color:#777;
+margin-top:4px;
 }
 
 .amount{
-  font-weight:800;
-  white-space:nowrap;
+font-weight:800;
+white-space:nowrap;
 }
 
 .settlement{
-  padding:14px;
-  background:#f7f7ff;
-  border-radius:13px;
-  margin-bottom:8px;
+padding:14px;
+background:#f7f7ff;
+border-radius:13px;
+margin-bottom:8px;
 }
 
 .notice{
-  background:#fff8df;
-  color:#755d18;
-  padding:12px;
-  border-radius:12px;
-  font-size:13px;
-  margin-top:12px;
+background:#fff8df;
+color:#755d18;
+padding:12px;
+border-radius:12px;
+font-size:13px;
+margin-top:12px;
 }
 
 .empty{
-  text-align:center;
-  padding:20px 5px;
-  color:#888;
+text-align:center;
+padding:20px 5px;
+color:#888;
 }
 
 .share{
-  width:100%;
-  margin-top:10px;
+width:100%;
+margin-top:10px;
 }
 
 .modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.55);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-  z-index:99;
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.55);
+display:none;
+align-items:center;
+justify-content:center;
+padding:20px;
+z-index:99;
 }
 
 .modal-box{
-  background:white;
-  width:100%;
-  max-width:380px;
-  border-radius:22px;
-  padding:22px;
+background:white;
+width:100%;
+max-width:380px;
+border-radius:22px;
+padding:22px;
 }
 
 .modal-box h3{
-  margin-bottom:8px;
+margin-bottom:8px;
 }
 
 .modal-box p{
-  color:#777;
-  font-size:14px;
-  line-height:1.5;
-  margin-bottom:15px;
+color:#777;
+font-size:14px;
+line-height:1.5;
+margin-bottom:15px;
 }
 
 .modal-buttons{
-  display:flex;
-  gap:10px;
-  margin-top:12px;
+display:flex;
+gap:10px;
+margin-top:12px;
 }
 
 .modal-buttons button{
-  flex:1;
+flex:1;
 }
 
 footer{
-  text-align:center;
-  color:#999;
-  font-size:12px;
-  margin-top:20px;
+text-align:center;
+color:#999;
+font-size:12px;
+margin-top:20px;
 }
 
 @media(max-width:450px){
-  .stats{
-    grid-template-columns:1fr 1fr;
-  }
 
-  .stats .stat:last-child{
-    grid-column:span 2;
-  }
+.stats{
+grid-template-columns:1fr 1fr;
+}
+
+.stats .stat:last-child{
+grid-column:span 2;
+}
+
 }
 </style>
 </head>
@@ -292,29 +294,31 @@ footer{
 </header>
 
 
-<!-- TRIP -->
-
 <div class="card">
 
 <h2>🧳 Your Trip</h2>
 
-<input id="tripName" placeholder="Trip name">
+<input
+id="tripName"
+placeholder="Trip name"
+>
 
-<button class="primary share" onclick="createOrShare()">
+<button
+class="primary share"
+onclick="createOrShare()"
+>
 🔗 Share Trip
 </button>
 
 <div class="notice">
 
-🔒 Everyone with the link can view the trip.
+🔒 Anyone with the link can view the trip.
 Only the owner PIN can make changes or delete expenses.
 
 </div>
 
 </div>
 
-
-<!-- SUMMARY -->
 
 <div class="card">
 
@@ -342,61 +346,72 @@ Only the owner PIN can make changes or delete expenses.
 </div>
 
 
-<!-- PEOPLE -->
-
 <div class="card">
 
 <h2>👥 People</h2>
 
 <div class="row">
 
-<input id="personName" placeholder="Enter person's name">
+<input
+id="personName"
+placeholder="Enter person's name"
+>
 
-<button class="primary" onclick="addPersonProtected()">
+<button
+class="primary"
+onclick="addPersonProtected()"
+>
 Add
 </button>
 
 </div>
 
-<div class="people" id="people"></div>
+<div
+class="people"
+id="people"
+></div>
 
 </div>
 
-
-<!-- ADD EXPENSE -->
 
 <div class="card">
 
 <h2>💰 Add Expense</h2>
 
-<input id="expenseName" placeholder="What was the expense?">
+<input
+id="expenseName"
+placeholder="What was the expense?"
+>
 
 <br><br>
 
-<input id="expenseAmount"
-       type="number"
-       placeholder="Amount ₹">
+<input
+id="expenseAmount"
+type="number"
+placeholder="Amount ₹"
+>
 
 <br><br>
 
 <select id="paidBy">
 
-<option value="">Who paid?</option>
+<option value="">
+Who paid?
+</option>
 
 </select>
 
 <br><br>
 
-<button class="primary share" onclick="addExpenseProtected()">
-
+<button
+class="primary share"
+onclick="addExpenseProtected()"
+>
 + Add Expense
-
 </button>
 
 </div>
 
-
-<!-- EXPENSE LIST -->
 
 <div class="card">
 
@@ -412,8 +427,6 @@ No expenses yet.
 
 </div>
 
-
-<!-- SETTLEMENT -->
 
 <div class="card">
 
@@ -431,22 +444,27 @@ Add expenses to see who owes whom.
 
 
 <footer>
+
 No Login Split • Simple group expense splitting
+
 </footer>
 
 </div>
 
 
-<!-- PIN MODAL -->
-
-<div class="modal" id="pinModal">
+<div
+class="modal"
+id="pinModal"
+>
 
 <div class="modal-box">
 
-<h3>🔐 Owner Access</h3>
+<h3 id="modalTitle">
+🔐 Owner Access
+</h3>
 
-<p>
-Enter the owner PIN to make changes to this trip.
+<p id="modalText">
+Enter your owner PIN.
 </p>
 
 <input
@@ -458,11 +476,17 @@ placeholder="Enter owner PIN"
 
 <div class="modal-buttons">
 
-<button onclick="closePin()" class="secondary">
+<button
+onclick="closePin()"
+class="secondary"
+>
 Cancel
 </button>
 
-<button onclick="verifyPin()" class="primary">
+<button
+onclick="verifyPin()"
+class="primary"
+>
 Unlock
 </button>
 
@@ -476,10 +500,10 @@ Unlock
 <script>
 
 /* =========================
-   DATA
+DATA
 ========================= */
 
-let data = {
+let data={
 
 tripName:"My Trip",
 
@@ -497,12 +521,63 @@ let pendingAction=null;
 
 
 /* =========================
-   ENCRYPTION HASH
+UTF-8 SAFE ENCODING
+========================= */
+
+function encodeData(){
+
+const json=JSON.stringify(data);
+
+const bytes=new TextEncoder().encode(json);
+
+let binary="";
+
+bytes.forEach(
+byte=>{
+binary+=String.fromCharCode(byte);
+});
+
+return btoa(binary)
+.replace(/\+/g,"-")
+.replace(/\//g,"_")
+.replace(/=/g,"");
+
+}
+
+
+function decodeData(encoded){
+
+encoded=
+encoded
+.replace(/-/g,"+")
+.replace(/_/g,"/");
+
+while(encoded.length%4){
+encoded+="=";
+}
+
+const binary=atob(encoded);
+
+const bytes=
+Uint8Array.from(
+binary,
+char=>char.charCodeAt(0)
+);
+
+return JSON.parse(
+new TextDecoder().decode(bytes)
+);
+
+}
+
+
+/* =========================
+HASH
 ========================= */
 
 async function hash(text){
 
-const buffer =
+const buffer=
 await crypto.subtle.digest(
 "SHA-256",
 new TextEncoder().encode(text)
@@ -511,62 +586,43 @@ new TextEncoder().encode(text)
 return Array.from(
 new Uint8Array(buffer)
 )
-.map(b=>b.toString(16).padStart(2,"0"))
+.map(
+b=>b.toString(16).padStart(2,"0")
+)
 .join("");
 
 }
 
 
 /* =========================
-   ENCODE DATA INTO LINK
-========================= */
-
-function encodeData(){
-
-return btoa(
-encodeURIComponent(
-JSON.stringify(data)
-)
-);
-
-}
-
-
-function decodeData(text){
-
-return JSON.parse(
-decodeURIComponent(
-atob(text)
-)
-);
-
-}
-
-
-/* =========================
-   LOAD TRIP
+LOAD
 ========================= */
 
 function loadTrip(){
 
-if(location.hash.length>1){
+const hashValue=
+location.hash.substring(1);
+
+if(hashValue){
 
 try{
 
-data=decodeData(
-location.hash.substring(1)
+data=decodeData(hashValue);
+
+}catch(error){
+
+console.error(error);
+
+alert(
+"This trip link is invalid."
 );
 
-}catch(e){
-
-console.log("Invalid trip link");
-
 }
 
 }
 
-document.getElementById("tripName").value =
-data.tripName || "My Trip";
+document.getElementById("tripName")
+.value=data.tripName||"My Trip";
 
 render();
 
@@ -574,22 +630,27 @@ render();
 
 
 /* =========================
-   SAVE TRIP
+SAVE
 ========================= */
 
 function save(){
 
+const encoded=encodeData();
+
 history.replaceState(
 null,
 "",
-"#"+encodeData()
+location.pathname+
+location.search+
+"#"+
+encoded
 );
 
 }
 
 
 /* =========================
-   OWNER PROTECTION
+PIN
 ========================= */
 
 function protectedAction(action){
@@ -603,6 +664,22 @@ return;
 }
 
 pendingAction=action;
+
+document.getElementById("modalTitle")
+.innerText=
+data.pinHash
+?
+"🔐 Owner Access"
+:
+"🔑 Create Owner PIN";
+
+document.getElementById("modalText")
+.innerText=
+data.pinHash
+?
+"Enter the owner PIN to edit this trip."
+:
+"Create a PIN. You will need this PIN to edit or delete expenses.";
 
 document.getElementById("pinModal")
 .style.display="flex";
@@ -627,20 +704,20 @@ pendingAction=null;
 
 async function verifyPin(){
 
-let pin=
+const pin=
 document.getElementById("pinInput")
 .value.trim();
 
 if(!pin){
 
-alert("Enter your PIN.");
+alert("Please enter a PIN.");
 
 return;
 
 }
 
 
-/* First time = create PIN */
+/* CREATE PIN */
 
 if(!data.pinHash){
 
@@ -653,17 +730,24 @@ save();
 
 closePin();
 
-if(pendingAction)
-pendingAction();
+if(pendingAction){
+
+const action=pendingAction;
+
+pendingAction=null;
+
+action();
+
+}
 
 return;
 
 }
 
 
-/* Existing PIN */
+/* VERIFY PIN */
 
-let hashed=
+const hashed=
 await hash(pin);
 
 if(hashed===data.pinHash){
@@ -672,8 +756,15 @@ unlocked=true;
 
 closePin();
 
-if(pendingAction)
-pendingAction();
+if(pendingAction){
+
+const action=pendingAction;
+
+pendingAction=null;
+
+action();
+
+}
 
 }else{
 
@@ -685,33 +776,101 @@ alert("❌ Wrong PIN.");
 
 
 /* =========================
-   CREATE / SHARE
+SHARE
 ========================= */
 
-function createOrShare(){
+async function createOrShare(){
+
+/*
+If this is a brand new trip,
+first create the owner PIN.
+*/
+
+if(!data.pinHash){
+
+pendingAction=shareAfterPin;
+
+document.getElementById("modalTitle")
+.innerText="🔑 Create Owner PIN";
+
+document.getElementById("modalText")
+.innerText=
+"Create an owner PIN. Only someone with this PIN can edit or delete the trip.";
+
+document.getElementById("pinModal")
+.style.display="flex";
+
+document.getElementById("pinInput")
+.focus();
+
+return;
+
+}
+
+shareAfterPin();
+
+}
+
+
+function shareAfterPin(){
 
 data.tripName=
 document.getElementById("tripName")
 .value.trim()
-||"My Trip";
+||
+"My Trip";
 
 save();
 
-if(navigator.clipboard){
+const link=location.href;
 
-navigator.clipboard.writeText(
-location.href
-);
 
-alert(
-"✅ Trip link copied!\n\nShare this link with your group."
+/*
+Try native share first on iPhone.
+*/
+
+if(navigator.share){
+
+navigator.share({
+
+title:"No Login Split",
+
+text:
+"Join my trip expense split on No Login Split:",
+
+url:link
+
+})
+.catch(
+()=>{
+copyLink(link);
+}
 );
 
 }else{
 
+copyLink(link);
+
+}
+
+}
+
+
+async function copyLink(link){
+
+try{
+
+await navigator.clipboard.writeText(link);
+
+alert(
+"✅ Trip link copied!\n\nSend this link to everyone in your group."
+);
+
+}catch(error){
+
 prompt(
-"Copy this trip link:",
-location.href
+"Copy your trip link:",
+link
 );
 
 }
@@ -720,7 +879,7 @@ location.href
 
 
 /* =========================
-   ADD PERSON
+ADD PERSON
 ========================= */
 
 function addPersonProtected(){
@@ -732,17 +891,19 @@ protectedAction(addPerson);
 
 function addPerson(){
 
-let input=
+const input=
 document.getElementById("personName");
 
-let name=input.value.trim();
+const name=input.value.trim();
 
 if(!name)
 return;
 
 if(data.people.includes(name)){
 
-alert("This person already exists.");
+alert(
+"This person is already added."
+);
 
 return;
 
@@ -760,17 +921,18 @@ render();
 
 
 /* =========================
-   REMOVE PERSON
+REMOVE PERSON
 ========================= */
 
 function removePerson(index){
 
 protectedAction(()=>{
 
-let person=data.people[index];
+const person=data.people[index];
 
-let used=data.expenses.some(
-expense =>
+const used=
+data.expenses.some(
+expense=>
 expense.paidBy===person
 );
 
@@ -796,7 +958,7 @@ render();
 
 
 /* =========================
-   ADD EXPENSE
+ADD EXPENSE
 ========================= */
 
 function addExpenseProtected(){
@@ -808,21 +970,21 @@ protectedAction(addExpense);
 
 function addExpense(){
 
-let name=
+const name=
 document.getElementById("expenseName")
 .value.trim();
 
-let amount=
+const amount=
 Number(
 document.getElementById("expenseAmount")
 .value
 );
 
-let paidBy=
+const paidBy=
 document.getElementById("paidBy")
 .value;
 
-if(!name || !amount || !paidBy){
+if(!name||!amount||!paidBy){
 
 alert(
 "Please enter expense, amount and payer."
@@ -832,11 +994,16 @@ return;
 
 }
 
+if(data.people.length<2){
 
-/*
-Every expense is automatically
-split equally between everyone.
-*/
+alert(
+"Add at least 2 people first."
+);
+
+return;
+
+}
+
 
 data.expenses.push({
 
@@ -865,7 +1032,7 @@ render();
 
 
 /* =========================
-   DELETE EXPENSE
+DELETE
 ========================= */
 
 function deleteExpense(index){
@@ -874,7 +1041,7 @@ protectedAction(()=>{
 
 if(
 confirm(
-"Are you sure you want to remove this expense?"
+"Remove this expense?"
 )
 ){
 
@@ -892,13 +1059,13 @@ render();
 
 
 /* =========================
-   RENDER
+RENDER
 ========================= */
 
 function render(){
 
 document.getElementById("tripName")
-.value=data.tripName;
+.value=data.tripName||"My Trip";
 
 
 document.getElementById("peopleCount")
@@ -925,7 +1092,9 @@ ${escapeHTML(person)}
 ${
 unlocked
 ?
-`<span onclick="removePerson(${index})">×</span>`
+`<span onclick="removePerson(${index})">
+×
+</span>`
 :
 ""
 }
@@ -936,12 +1105,15 @@ unlocked
 
 });
 
+
 if(!peopleHTML){
 
 peopleHTML=
-`<div class="empty">
-Add people joining the trip.
-</div>`;
+`
+<div class="empty">
+Add everyone joining the trip.
+</div>
+`;
 
 }
 
@@ -949,20 +1121,26 @@ document.getElementById("people")
 .innerHTML=peopleHTML;
 
 
-/* PAID BY */
+/* PAYER */
 
-let select=
+const select=
 document.getElementById("paidBy");
 
 select.innerHTML=
-`<option value="">Who paid?</option>`;
+`
+<option value="">
+Who paid?
+</option>
+`;
 
 data.people.forEach(person=>{
 
 select.innerHTML+=
-`<option value="${escapeHTML(person)}">
+`
+<option value="${escapeHTML(person)}">
 ${escapeHTML(person)}
-</option>`;
+</option>
+`;
 
 });
 
@@ -972,6 +1150,7 @@ ${escapeHTML(person)}
 let expenseHTML="";
 
 let total=0;
+
 
 data.expenses.forEach(
 (expense,index)=>{
@@ -1014,12 +1193,15 @@ Split between ${expense.split.length} people
 ${
 unlocked
 ?
-`<button
+`
+<button
 class="danger"
 style="padding:6px;margin-top:6px"
-onclick="deleteExpense(${index})">
+onclick="deleteExpense(${index})"
+>
 Delete
-</button>`
+</button>
+`
 :
 ""
 }
@@ -1036,9 +1218,11 @@ Delete
 if(!expenseHTML){
 
 expenseHTML=
-`<div class="empty">
+`
+<div class="empty">
 No expenses yet.
-</div>`;
+</div>
+`;
 
 }
 
@@ -1058,12 +1242,12 @@ calculateSettlement();
 
 
 /* =========================
-   SETTLEMENT CALCULATION
+SETTLEMENT
 ========================= */
 
 function calculateSettlement(){
 
-let balance={};
+const balance={};
 
 data.people.forEach(
 person=>{
@@ -1073,32 +1257,31 @@ balance[person]=0;
 
 data.expenses.forEach(expense=>{
 
-let amount=
+const amount=
 Number(expense.amount);
 
 balance[expense.paidBy]+=amount;
 
-let share=
+const share=
 amount/expense.split.length;
 
-expense.split.forEach(person=>{
-
+expense.split.forEach(
+person=>{
 balance[person]-=share;
-
 });
 
 });
 
 
-let debtors=[];
+const debtors=[];
 
-let creditors=[];
+const creditors=[];
 
 
 Object.entries(balance).forEach(
 ([person,value])=>{
 
-if(value < -0.01){
+if(value<-0.01){
 
 debtors.push([
 person,
@@ -1107,7 +1290,7 @@ person,
 
 }
 
-if(value > 0.01){
+if(value>0.01){
 
 creditors.push([
 person,
@@ -1119,7 +1302,7 @@ value
 });
 
 
-let result=[];
+const result=[];
 
 let i=0;
 
@@ -1127,11 +1310,11 @@ let j=0;
 
 
 while(
-i<debtors.length &&
+i<debtors.length&&
 j<creditors.length
 ){
 
-let amount=
+const amount=
 Math.min(
 debtors[i][1],
 creditors[j][1]
@@ -1152,9 +1335,14 @@ ${escapeHTML(creditors[j][0])}
 </b>
 
 <strong>
-₹${amount.toLocaleString("en-IN",{
+
+₹${amount.toLocaleString(
+"en-IN",
+{
 maximumFractionDigits:2
-})}
+}
+)}
+
 </strong>
 
 </div>
@@ -1176,26 +1364,23 @@ j++;
 }
 
 
-if(result.length){
-
-document.getElementById("settlement")
-.innerHTML=result.join("");
-
-}else{
-
 document.getElementById("settlement")
 .innerHTML=
-`<div class="empty">
+result.length
+?
+result.join("")
+:
+`
+<div class="empty">
 🎉 Everyone is settled up!
-</div>`;
-
-}
+</div>
+`;
 
 }
 
 
 /* =========================
-   SECURITY DISPLAY
+ESCAPE HTML
 ========================= */
 
 function escapeHTML(text){
@@ -1211,7 +1396,7 @@ return String(text)
 
 
 /* =========================
-   START
+START
 ========================= */
 
 loadTrip();
