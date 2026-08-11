@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>No Login Split</title>
 
+<meta name="theme-color" content="#635bff">
+
 <style>
+
 *{
 box-sizing:border-box;
 margin:0;
@@ -14,54 +21,54 @@ padding:0;
 }
 
 body{
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
 background:#f5f6fb;
-color:#18181b;
+color:#17171c;
 }
 
 .container{
-max-width:700px;
+max-width:720px;
 margin:auto;
-padding:20px 15px 50px;
+padding:18px 15px 50px;
 }
 
 header{
 text-align:center;
-padding:25px 0;
+padding:25px 0 20px;
 }
 
 .logo{
-width:58px;
-height:58px;
+width:62px;
+height:62px;
 margin:auto;
-border-radius:18px;
 display:flex;
 align-items:center;
 justify-content:center;
-background:linear-gradient(135deg,#6c63ff,#5148e8);
+border-radius:19px;
+background:linear-gradient(135deg,#756cff,#5147df);
 color:white;
-font-size:22px;
+font-size:21px;
 font-weight:800;
-box-shadow:0 10px 25px rgba(92,82,220,.25);
+box-shadow:0 12px 30px rgba(92,80,230,.28);
 }
 
 header h1{
-margin-top:12px;
-font-size:27px;
+font-size:28px;
+margin-top:13px;
 }
 
 header p{
-margin-top:5px;
 color:#777;
 font-size:14px;
+margin-top:5px;
 }
 
 .card{
 background:white;
-border-radius:20px;
+border-radius:21px;
 padding:20px;
 margin-bottom:16px;
-box-shadow:0 8px 30px rgba(0,0,0,.06);
+box-shadow:0 8px 30px rgba(20,20,40,.06);
 }
 
 .card h2{
@@ -69,25 +76,32 @@ font-size:18px;
 margin-bottom:15px;
 }
 
-input,select{
+input,
+select{
 width:100%;
-padding:13px;
-border:1px solid #ddd;
-border-radius:12px;
+height:48px;
+border:1px solid #dedee6;
+border-radius:13px;
+padding:0 14px;
 font-size:15px;
+background:#fafafd;
 outline:none;
-background:#fafafa;
+color:#17171c;
 }
 
-input:focus,select:focus{
+input:focus,
+select:focus{
 border-color:#655ce8;
 background:white;
+box-shadow:0 0 0 3px rgba(99,91,255,.08);
 }
 
 button{
-border:none;
-border-radius:12px;
-padding:12px 16px;
+border:0;
+border-radius:13px;
+height:48px;
+padding:0 17px;
+font-size:14px;
 font-weight:700;
 cursor:pointer;
 }
@@ -97,8 +111,12 @@ background:#635bff;
 color:white;
 }
 
+.primary:active{
+transform:scale(.98);
+}
+
 .secondary{
-background:#f0efff;
+background:#efefff;
 color:#5148d9;
 }
 
@@ -117,28 +135,34 @@ flex:1;
 }
 
 .row button{
-white-space:nowrap;
+flex-shrink:0;
 }
 
-.people{
-display:flex;
-flex-wrap:wrap;
-gap:8px;
-margin-top:15px;
+.share{
+width:100%;
+margin-top:12px;
 }
 
-.person{
-background:#f0efff;
-color:#5148d9;
-padding:8px 12px;
-border-radius:50px;
-font-size:14px;
-font-weight:600;
+.notice{
+background:#fff8df;
+border:1px solid #f1dfaa;
+color:#705919;
+padding:13px;
+border-radius:13px;
+font-size:13px;
+line-height:1.5;
+margin-top:12px;
 }
 
-.person span{
-margin-left:7px;
-cursor:pointer;
+.success{
+background:#eafaf2;
+border:1px solid #c8efd9;
+color:#147244;
+padding:12px;
+border-radius:13px;
+font-size:13px;
+margin-top:12px;
+display:none;
 }
 
 .stats{
@@ -149,108 +173,142 @@ gap:10px;
 
 .stat{
 background:#f7f7fa;
-padding:15px;
 border-radius:15px;
+padding:15px;
 }
 
 .stat small{
-color:#777;
 display:block;
-margin-bottom:5px;
+color:#777;
+font-size:12px;
+margin-bottom:6px;
 }
 
 .stat strong{
-font-size:19px;
+font-size:20px;
+}
+
+.people{
+display:flex;
+flex-wrap:wrap;
+gap:8px;
+margin-top:14px;
+}
+
+.person{
+background:#efefff;
+color:#5148d9;
+border-radius:50px;
+padding:8px 12px;
+font-size:14px;
+font-weight:600;
+}
+
+.person span{
+margin-left:7px;
+font-size:17px;
+cursor:pointer;
 }
 
 .expense{
 display:flex;
-justify-content:space-between;
 align-items:center;
-gap:10px;
+justify-content:space-between;
+gap:15px;
 padding:15px 0;
-border-bottom:1px solid #eee;
+border-bottom:1px solid #eeeeF2;
 }
 
 .expense:last-child{
-border-bottom:none;
+border-bottom:0;
 }
 
 .expense-title{
 font-weight:700;
+font-size:15px;
 }
 
 .expense-info{
 font-size:12px;
 color:#777;
+line-height:1.5;
 margin-top:4px;
 }
 
 .amount{
+font-size:16px;
 font-weight:800;
 white-space:nowrap;
+text-align:right;
+}
+
+.delete{
+margin-top:7px;
+height:34px;
+padding:0 9px;
+font-size:11px;
 }
 
 .settlement{
-padding:14px;
 background:#f7f7ff;
-border-radius:13px;
+border-radius:14px;
+padding:14px;
 margin-bottom:8px;
-}
-
-.notice{
-background:#fff8df;
-color:#755d18;
-padding:12px;
-border-radius:12px;
-font-size:13px;
-margin-top:12px;
+font-size:14px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:10px;
 }
 
 .empty{
 text-align:center;
-padding:20px 5px;
+padding:22px 5px;
 color:#888;
+font-size:14px;
 }
 
-.share{
-width:100%;
+.locked{
+font-size:12px;
+color:#777;
 margin-top:10px;
 }
 
 .modal{
 position:fixed;
 inset:0;
-background:rgba(0,0,0,.55);
+background:rgba(0,0,0,.58);
 display:none;
 align-items:center;
 justify-content:center;
 padding:20px;
-z-index:99;
+z-index:999;
 }
 
 .modal-box{
-background:white;
 width:100%;
-max-width:380px;
-border-radius:22px;
-padding:22px;
+max-width:390px;
+background:white;
+border-radius:23px;
+padding:23px;
+box-shadow:0 20px 70px rgba(0,0,0,.3);
 }
 
 .modal-box h3{
+font-size:20px;
 margin-bottom:8px;
 }
 
 .modal-box p{
-color:#777;
 font-size:14px;
 line-height:1.5;
+color:#777;
 margin-bottom:15px;
 }
 
 .modal-buttons{
 display:flex;
-gap:10px;
+gap:9px;
 margin-top:12px;
 }
 
@@ -258,14 +316,24 @@ margin-top:12px;
 flex:1;
 }
 
+.share-box{
+background:#f7f7ff;
+padding:12px;
+border-radius:12px;
+margin-top:12px;
+font-size:12px;
+word-break:break-all;
+display:none;
+}
+
 footer{
 text-align:center;
 color:#999;
 font-size:12px;
-margin-top:20px;
+margin-top:22px;
 }
 
-@media(max-width:450px){
+@media(max-width:460px){
 
 .stats{
 grid-template-columns:1fr 1fr;
@@ -275,86 +343,155 @@ grid-template-columns:1fr 1fr;
 grid-column:span 2;
 }
 
+.expense{
+align-items:flex-start;
 }
+
+}
+
 </style>
+
 </head>
+
 
 <body>
 
+
 <div class="container">
+
 
 <header>
 
-<div class="logo">NL</div>
+<div class="logo">
+NL
+</div>
 
-<h1>No Login Split</h1>
+<h1>
+No Login Split
+</h1>
 
-<p>Split expenses. No login. No headache.</p>
+<p>
+Split expenses. No login. No headache.
+</p>
 
 </header>
 
 
+
+<!-- TRIP -->
+
 <div class="card">
 
-<h2>🧳 Your Trip</h2>
+<h2>
+🧳 Trip
+</h2>
 
 <input
 id="tripName"
-placeholder="Trip name"
+placeholder="Enter trip name"
 >
 
 <button
 class="primary share"
-onclick="createOrShare()"
+onclick="shareTrip()"
 >
 🔗 Share Trip
 </button>
 
+<div
+id="shareSuccess"
+class="success"
+>
+✅ Trip link is ready to share!
+</div>
+
 <div class="notice">
 
-🔒 Anyone with the link can view the trip.
-Only the owner PIN can make changes or delete expenses.
+🔒 <b>View-only sharing</b><br>
+
+Anyone who has the link can see the expenses.
+
+Only the person with the owner PIN can add,
+change or delete expenses.
 
 </div>
 
+<div
+id="shareBox"
+class="share-box"
+></div>
+
 </div>
 
+
+
+<!-- SUMMARY -->
 
 <div class="card">
 
-<h2>📊 Summary</h2>
+<h2>
+📊 Summary
+</h2>
 
 <div class="stats">
 
 <div class="stat">
-<small>Total spent</small>
-<strong id="total">₹0</strong>
+
+<small>
+Total spent
+</small>
+
+<strong id="total">
+₹0
+</strong>
+
 </div>
+
 
 <div class="stat">
-<small>People</small>
-<strong id="peopleCount">0</strong>
+
+<small>
+People
+</small>
+
+<strong id="peopleCount">
+0
+</strong>
+
 </div>
+
 
 <div class="stat">
-<small>Expenses</small>
-<strong id="expenseCount">0</strong>
-</div>
+
+<small>
+Expenses
+</small>
+
+<strong id="expenseCount">
+0
+</strong>
 
 </div>
 
 </div>
 
+</div>
+
+
+
+<!-- PEOPLE -->
 
 <div class="card">
 
-<h2>👥 People</h2>
+<h2>
+👥 People
+</h2>
 
 <div class="row">
 
 <input
 id="personName"
-placeholder="Enter person's name"
+placeholder="e.g. Rahul"
 >
 
 <button
@@ -367,20 +504,31 @@ Add
 </div>
 
 <div
-class="people"
 id="people"
+class="people"
 ></div>
+
+<div class="locked">
+
+🔐 Changes require the owner PIN.
+
+</div>
 
 </div>
 
 
+
+<!-- EXPENSE -->
+
 <div class="card">
 
-<h2>💰 Add Expense</h2>
+<h2>
+💰 Add Expense
+</h2>
 
 <input
 id="expenseName"
-placeholder="What was the expense?"
+placeholder="Expense name — Hotel, Food, Taxi..."
 >
 
 <br><br>
@@ -388,6 +536,7 @@ placeholder="What was the expense?"
 <input
 id="expenseAmount"
 type="number"
+inputmode="decimal"
 placeholder="Amount ₹"
 >
 
@@ -401,8 +550,6 @@ Who paid?
 
 </select>
 
-<br><br>
-
 <button
 class="primary share"
 onclick="addExpenseProtected()"
@@ -413,9 +560,14 @@ onclick="addExpenseProtected()"
 </div>
 
 
+
+<!-- EXPENSES -->
+
 <div class="card">
 
-<h2>🧾 Expenses</h2>
+<h2>
+🧾 Expenses
+</h2>
 
 <div id="expenses">
 
@@ -428,9 +580,14 @@ No expenses yet.
 </div>
 
 
+
+<!-- SETTLEMENT -->
+
 <div class="card">
 
-<h2>🤝 Settlement</h2>
+<h2>
+🤝 Settlement
+</h2>
 
 <div id="settlement">
 
@@ -443,27 +600,32 @@ Add expenses to see who owes whom.
 </div>
 
 
+
 <footer>
 
 No Login Split • Simple group expense splitting
 
 </footer>
 
+
 </div>
 
 
+
+<!-- PIN MODAL -->
+
 <div
-class="modal"
 id="pinModal"
+class="modal"
 >
 
 <div class="modal-box">
 
-<h3 id="modalTitle">
+<h3 id="pinTitle">
 🔐 Owner Access
 </h3>
 
-<p id="modalText">
+<p id="pinDescription">
 Enter your owner PIN.
 </p>
 
@@ -471,23 +633,24 @@ Enter your owner PIN.
 id="pinInput"
 type="password"
 inputmode="numeric"
-placeholder="Enter owner PIN"
+autocomplete="off"
+placeholder="Enter PIN"
 >
 
 <div class="modal-buttons">
 
 <button
-onclick="closePin()"
 class="secondary"
+onclick="closePin()"
 >
 Cancel
 </button>
 
 <button
-onclick="verifyPin()"
 class="primary"
+onclick="verifyPin()"
 >
-Unlock
+Continue
 </button>
 
 </div>
@@ -497,11 +660,14 @@ Unlock
 </div>
 
 
+
 <script>
 
-/* =========================
-DATA
-========================= */
+
+/* =====================================================
+   APP DATA
+===================================================== */
+
 
 let data={
 
@@ -515,27 +681,39 @@ pinHash:""
 
 };
 
+
 let unlocked=false;
 
 let pendingAction=null;
 
 
-/* =========================
-UTF-8 SAFE ENCODING
-========================= */
+/* =====================================================
+   UTF-8 SAFE ENCODING
+===================================================== */
+
 
 function encodeData(){
 
-const json=JSON.stringify(data);
+const json=
+JSON.stringify(data);
 
-const bytes=new TextEncoder().encode(json);
+const bytes=
+new TextEncoder()
+.encode(json);
 
 let binary="";
 
-bytes.forEach(
-byte=>{
-binary+=String.fromCharCode(byte);
-});
+for(
+let i=0;
+i<bytes.length;
+i++
+){
+
+binary+=String.fromCharCode(
+bytes[i]
+);
+
+}
 
 return btoa(binary)
 .replace(/\+/g,"-")
@@ -545,35 +723,52 @@ return btoa(binary)
 }
 
 
-function decodeData(encoded){
+function decodeData(value){
 
-encoded=
-encoded
+let encoded=value
 .replace(/-/g,"+")
 .replace(/_/g,"/");
 
-while(encoded.length%4){
+while(
+encoded.length % 4 !== 0
+){
+
 encoded+="=";
+
 }
 
-const binary=atob(encoded);
+const binary=
+atob(encoded);
 
 const bytes=
-Uint8Array.from(
-binary,
-char=>char.charCodeAt(0)
+new Uint8Array(
+binary.length
 );
 
-return JSON.parse(
-new TextDecoder().decode(bytes)
-);
+for(
+let i=0;
+i<binary.length;
+i++
+){
+
+bytes[i]=
+binary.charCodeAt(i);
+
+}
+
+const json=
+new TextDecoder()
+.decode(bytes);
+
+return JSON.parse(json);
 
 }
 
 
-/* =========================
-HASH
-========================= */
+/* =====================================================
+   HASH PIN
+===================================================== */
+
 
 async function hash(text){
 
@@ -583,75 +778,113 @@ await crypto.subtle.digest(
 new TextEncoder().encode(text)
 );
 
-return Array.from(
-new Uint8Array(buffer)
-)
+const bytes=
+new Uint8Array(buffer);
+
+return Array.from(bytes)
 .map(
-b=>b.toString(16).padStart(2,"0")
+byte =>
+byte.toString(16)
+.padStart(2,"0")
 )
 .join("");
 
 }
 
 
-/* =========================
-LOAD
-========================= */
+/* =====================================================
+   LOAD TRIP
+===================================================== */
+
 
 function loadTrip(){
 
-const hashValue=
-location.hash.substring(1);
+const params=
+new URLSearchParams(
+window.location.search
+);
 
-if(hashValue){
+const trip=
+params.get("trip");
+
+
+if(trip){
 
 try{
 
-data=decodeData(hashValue);
+data=
+decodeData(trip);
 
 }catch(error){
 
 console.error(error);
 
 alert(
-"This trip link is invalid."
+"This trip link is invalid or corrupted."
 );
 
 }
 
 }
 
-document.getElementById("tripName")
-.value=data.tripName||"My Trip";
+
+if(!data.tripName){
+
+data.tripName=
+"My Trip";
+
+}
+
+
+document.getElementById(
+"tripName"
+).value=
+data.tripName;
+
 
 render();
 
 }
 
 
-/* =========================
-SAVE
-========================= */
+/* =====================================================
+   SAVE TRIP
+===================================================== */
+
 
 function save(){
 
-const encoded=encodeData();
+const encoded=
+encodeData();
+
+
+const newURL=
+window.location.origin+
+window.location.pathname+
+"?trip="+
+encodeURIComponent(encoded);
+
 
 history.replaceState(
 null,
 "",
-location.pathname+
-location.search+
-"#"+
-encoded
+newURL
 );
+
+
+/*
+   Important:
+   The page URL now contains
+   the entire trip.
+*/
 
 }
 
 
-/* =========================
-PIN
-========================= */
+/* =====================================================
+   PROTECTED ACTION
+===================================================== */
+
 
 function protectedAction(action){
 
@@ -663,61 +896,119 @@ return;
 
 }
 
+
 pendingAction=action;
 
-document.getElementById("modalTitle")
-.innerText=
-data.pinHash
-?
-"🔐 Owner Access"
-:
+
+if(data.pinHash){
+
+document.getElementById(
+"pinTitle"
+).innerText=
+"🔐 Owner Access";
+
+document.getElementById(
+"pinDescription"
+).innerText=
+"Enter the owner PIN to make changes to this trip.";
+
+}else{
+
+document.getElementById(
+"pinTitle"
+).innerText=
 "🔑 Create Owner PIN";
 
-document.getElementById("modalText")
-.innerText=
-data.pinHash
-?
-"Enter the owner PIN to edit this trip."
-:
-"Create a PIN. You will need this PIN to edit or delete expenses.";
-
-document.getElementById("pinModal")
-.style.display="flex";
-
-document.getElementById("pinInput")
-.focus();
+document.getElementById(
+"pinDescription"
+).innerText=
+"Create a PIN. You will need this PIN whenever you want to edit or delete this trip.";
 
 }
 
 
+document.getElementById(
+"pinModal"
+).style.display=
+"flex";
+
+
+document.getElementById(
+"pinInput"
+).value="";
+
+
+setTimeout(
+()=>{
+document.getElementById(
+"pinInput"
+).focus();
+},
+100
+);
+
+}
+
+
+/* =====================================================
+   CLOSE PIN
+===================================================== */
+
+
 function closePin(){
 
-document.getElementById("pinModal")
-.style.display="none";
+document.getElementById(
+"pinModal"
+).style.display=
+"none";
 
-document.getElementById("pinInput").value="";
+document.getElementById(
+"pinInput"
+).value="";
 
 pendingAction=null;
 
 }
 
 
+/* =====================================================
+   VERIFY / CREATE PIN
+===================================================== */
+
+
 async function verifyPin(){
 
 const pin=
-document.getElementById("pinInput")
-.value.trim();
+document.getElementById(
+"pinInput"
+).value.trim();
+
 
 if(!pin){
 
-alert("Please enter a PIN.");
+alert(
+"Please enter a PIN."
+);
 
 return;
 
 }
 
 
-/* CREATE PIN */
+if(pin.length<4){
+
+alert(
+"Please use at least 4 digits."
+);
+
+return;
+
+}
+
+
+/*
+   Create first PIN
+*/
 
 if(!data.pinHash){
 
@@ -732,7 +1023,8 @@ closePin();
 
 if(pendingAction){
 
-const action=pendingAction;
+const action=
+pendingAction;
 
 pendingAction=null;
 
@@ -745,10 +1037,13 @@ return;
 }
 
 
-/* VERIFY PIN */
+/*
+   Check existing PIN
+*/
 
 const hashed=
 await hash(pin);
+
 
 if(hashed===data.pinHash){
 
@@ -758,7 +1053,8 @@ closePin();
 
 if(pendingAction){
 
-const action=pendingAction;
+const action=
+pendingAction;
 
 pendingAction=null;
 
@@ -768,84 +1064,165 @@ action();
 
 }else{
 
-alert("❌ Wrong PIN.");
+alert(
+"❌ Wrong PIN."
+);
 
 }
 
 }
 
 
-/* =========================
-SHARE
-========================= */
+/* =====================================================
+   SHARE TRIP
+===================================================== */
 
-async function createOrShare(){
+
+async function shareTrip(){
 
 /*
-If this is a brand new trip,
-first create the owner PIN.
+   Save trip name first
+*/
+
+data.tripName=
+document.getElementById(
+"tripName"
+).value.trim()
+||
+"My Trip";
+
+
+/*
+   New trip needs PIN
 */
 
 if(!data.pinHash){
 
-pendingAction=shareAfterPin;
+pendingAction=
+finishSharing;
 
-document.getElementById("modalTitle")
-.innerText="🔑 Create Owner PIN";
+document.getElementById(
+"pinTitle"
+).innerText=
+"🔑 Create Owner PIN";
 
-document.getElementById("modalText")
-.innerText=
-"Create an owner PIN. Only someone with this PIN can edit or delete the trip.";
+document.getElementById(
+"pinDescription"
+).innerText=
+"Create an owner PIN first. This PIN will protect your trip from edits by other people.";
 
-document.getElementById("pinModal")
-.style.display="flex";
+document.getElementById(
+"pinModal"
+).style.display=
+"flex";
 
-document.getElementById("pinInput")
-.focus();
+document.getElementById(
+"pinInput"
+).value="";
+
+setTimeout(
+()=>{
+document.getElementById(
+"pinInput"
+).focus();
+},
+100
+);
 
 return;
 
 }
 
-shareAfterPin();
+
+finishSharing();
 
 }
 
 
-function shareAfterPin(){
+/* =====================================================
+   FINISH SHARING
+===================================================== */
+
+
+async function finishSharing(){
 
 data.tripName=
-document.getElementById("tripName")
-.value.trim()
+document.getElementById(
+"tripName"
+).value.trim()
 ||
 "My Trip";
 
+
+/*
+   Create the URL
+*/
+
 save();
 
-const link=location.href;
+
+const link=
+window.location.href;
 
 
 /*
-Try native share first on iPhone.
+   Display link on screen
 */
 
-if(navigator.share){
+const box=
+document.getElementById(
+"shareBox"
+);
 
-navigator.share({
+box.style.display=
+"block";
 
-title:"No Login Split",
+box.innerText=
+link;
+
+
+document.getElementById(
+"shareSuccess"
+).style.display=
+"block";
+
+
+/*
+   iPhone native share
+*/
+
+if(
+navigator.share
+){
+
+try{
+
+await navigator.share({
+
+title:
+"No Login Split",
 
 text:
-"Join my trip expense split on No Login Split:",
+"Join my group expense split 👇",
 
-url:link
+url:
+link
 
-})
-.catch(
-()=>{
-copyLink(link);
-}
+});
+
+
+}catch(error){
+
+/*
+   User cancelled share.
+   Don't show an error.
+*/
+
+console.log(
+"Share cancelled"
 );
+
+}
 
 }else{
 
@@ -856,20 +1233,27 @@ copyLink(link);
 }
 
 
+/* =====================================================
+   COPY LINK
+===================================================== */
+
+
 async function copyLink(link){
 
 try{
 
-await navigator.clipboard.writeText(link);
+await navigator.clipboard.writeText(
+link
+);
 
 alert(
-"✅ Trip link copied!\n\nSend this link to everyone in your group."
+"✅ Trip link copied!\n\nPaste it into WhatsApp, Messages or anywhere you want."
 );
 
 }catch(error){
 
 prompt(
-"Copy your trip link:",
+"Copy this complete trip link:",
 link
 );
 
@@ -878,13 +1262,16 @@ link
 }
 
 
-/* =========================
-ADD PERSON
-========================= */
+/* =====================================================
+   ADD PERSON
+===================================================== */
+
 
 function addPersonProtected(){
 
-protectedAction(addPerson);
+protectedAction(
+addPerson
+);
 
 }
 
@@ -892,14 +1279,28 @@ protectedAction(addPerson);
 function addPerson(){
 
 const input=
-document.getElementById("personName");
+document.getElementById(
+"personName"
+);
 
-const name=input.value.trim();
+const name=
+input.value.trim();
 
-if(!name)
+
+if(!name){
+
+alert(
+"Enter a person's name."
+);
+
 return;
 
-if(data.people.includes(name)){
+}
+
+
+if(
+data.people.includes(name)
+){
 
 alert(
 "This person is already added."
@@ -908,6 +1309,7 @@ alert(
 return;
 
 }
+
 
 data.people.push(name);
 
@@ -920,84 +1322,108 @@ render();
 }
 
 
-/* =========================
-REMOVE PERSON
-========================= */
+/* =====================================================
+   REMOVE PERSON
+===================================================== */
+
 
 function removePerson(index){
 
-protectedAction(()=>{
+protectedAction(
+()=>{
 
-const person=data.people[index];
+const person=
+data.people[index];
+
 
 const used=
 data.expenses.some(
-expense=>
+expense =>
 expense.paidBy===person
 );
+
 
 if(used){
 
 alert(
-"Remove this person's expenses first."
+"This person has expenses. Remove those expenses first."
 );
 
 return;
 
 }
 
-data.people.splice(index,1);
+
+data.people.splice(
+index,
+1
+);
 
 save();
 
 render();
 
-});
+}
+);
 
 }
 
 
-/* =========================
-ADD EXPENSE
-========================= */
+/* =====================================================
+   ADD EXPENSE
+===================================================== */
+
 
 function addExpenseProtected(){
 
-protectedAction(addExpense);
+protectedAction(
+addExpense
+);
 
 }
 
 
 function addExpense(){
 
-const name=
-document.getElementById("expenseName")
-.value.trim();
-
-const amount=
-Number(
-document.getElementById("expenseAmount")
-.value
-);
-
-const paidBy=
-document.getElementById("paidBy")
-.value;
-
-if(!name||!amount||!paidBy){
+if(data.people.length<2){
 
 alert(
-"Please enter expense, amount and payer."
+"Please add at least 2 people first."
 );
 
 return;
 
 }
 
-if(data.people.length<2){
+
+const name=
+document.getElementById(
+"expenseName"
+).value.trim();
+
+
+const amount=
+Number(
+document.getElementById(
+"expenseAmount"
+).value
+);
+
+
+const paidBy=
+document.getElementById(
+"paidBy"
+).value;
+
+
+if(
+!name ||
+!amount ||
+!paidBy
+){
 
 alert(
-"Add at least 2 people first."
+"Please enter expense, amount and payer."
 );
 
 return;
@@ -1013,16 +1439,22 @@ amount:amount,
 
 paidBy:paidBy,
 
-split:[...data.people]
+split:[
+...data.people
+]
 
 });
 
 
-document.getElementById("expenseName")
-.value="";
+document.getElementById(
+"expenseName"
+).value="";
 
-document.getElementById("expenseAmount")
-.value="";
+
+document.getElementById(
+"expenseAmount"
+).value="";
+
 
 save();
 
@@ -1031,21 +1463,26 @@ render();
 }
 
 
-/* =========================
-DELETE
-========================= */
+/* =====================================================
+   DELETE EXPENSE
+===================================================== */
+
 
 function deleteExpense(index){
 
-protectedAction(()=>{
+protectedAction(
+()=>{
 
 if(
 confirm(
-"Remove this expense?"
+"Are you sure you want to remove this expense?"
 )
 ){
 
-data.expenses.splice(index,1);
+data.expenses.splice(
+index,
+1
+);
 
 save();
 
@@ -1053,32 +1490,52 @@ render();
 
 }
 
-});
+}
+);
 
 }
 
 
-/* =========================
-RENDER
-========================= */
+/* =====================================================
+   RENDER
+===================================================== */
+
 
 function render(){
 
-document.getElementById("tripName")
-.value=data.tripName||"My Trip";
+
+/*
+   Trip
+*/
+
+document.getElementById(
+"tripName"
+).value=
+data.tripName;
 
 
-document.getElementById("peopleCount")
-.innerText=data.people.length;
+/*
+   Stats
+*/
+
+document.getElementById(
+"peopleCount"
+).innerText=
+data.people.length;
 
 
-document.getElementById("expenseCount")
-.innerText=data.expenses.length;
+document.getElementById(
+"expenseCount"
+).innerText=
+data.expenses.length;
 
 
-/* PEOPLE */
+/*
+   People
+*/
 
 let peopleHTML="";
+
 
 data.people.forEach(
 (person,index)=>{
@@ -1092,9 +1549,13 @@ ${escapeHTML(person)}
 ${
 unlocked
 ?
-`<span onclick="removePerson(${index})">
+`
+<span
+onclick="removePerson(${index})"
+>
 ×
-</span>`
+</span>
+`
 :
 ""
 }
@@ -1108,23 +1569,34 @@ unlocked
 
 if(!peopleHTML){
 
-peopleHTML=
-`
+peopleHTML=`
+
 <div class="empty">
+
 Add everyone joining the trip.
+
 </div>
+
 `;
 
 }
 
-document.getElementById("people")
-.innerHTML=peopleHTML;
+
+document.getElementById(
+"people"
+).innerHTML=
+peopleHTML;
 
 
-/* PAYER */
+/*
+   Paid by
+*/
 
 const select=
-document.getElementById("paidBy");
+document.getElementById(
+"paidBy"
+);
+
 
 select.innerHTML=
 `
@@ -1133,19 +1605,32 @@ Who paid?
 </option>
 `;
 
-data.people.forEach(person=>{
 
-select.innerHTML+=
-`
-<option value="${escapeHTML(person)}">
-${escapeHTML(person)}
-</option>
-`;
+data.people.forEach(
+person=>{
 
-});
+const option=
+document.createElement(
+"option"
+);
+
+option.value=
+person;
+
+option.textContent=
+person;
+
+select.appendChild(
+option
+);
+
+}
+);
 
 
-/* EXPENSES */
+/*
+   Expenses
+*/
 
 let expenseHTML="";
 
@@ -1155,7 +1640,11 @@ let total=0;
 data.expenses.forEach(
 (expense,index)=>{
 
-total+=Number(expense.amount);
+const amount=
+Number(expense.amount);
+
+total+=amount;
+
 
 expenseHTML+=`
 
@@ -1165,28 +1654,40 @@ expenseHTML+=`
 
 <div class="expense-title">
 
-${escapeHTML(expense.name)}
+${escapeHTML(
+expense.name
+)}
 
 </div>
 
 <div class="expense-info">
 
-Paid by ${escapeHTML(expense.paidBy)}
+Paid by
+${escapeHTML(
+expense.paidBy
+)}
 
 <br>
 
-Split between ${expense.split.length} people
+Split between
+${expense.split.length}
+people
 
 </div>
 
 </div>
+
 
 <div>
 
 <div class="amount">
 
-₹${Number(expense.amount)
-.toLocaleString("en-IN")}
+₹${amount.toLocaleString(
+"en-IN",
+{
+maximumFractionDigits:2
+}
+)}
 
 </div>
 
@@ -1195,8 +1696,7 @@ unlocked
 ?
 `
 <button
-class="danger"
-style="padding:6px;margin-top:6px"
+class="danger delete"
 onclick="deleteExpense(${index})"
 >
 Delete
@@ -1220,55 +1720,105 @@ if(!expenseHTML){
 expenseHTML=
 `
 <div class="empty">
+
 No expenses yet.
+
 </div>
 `;
 
 }
 
-document.getElementById("expenses")
-.innerHTML=expenseHTML;
+
+document.getElementById(
+"expenses"
+).innerHTML=
+expenseHTML;
 
 
-document.getElementById("total")
-.innerText=
+/*
+   Total
+*/
+
+document.getElementById(
+"total"
+).innerText=
 "₹"+
-total.toLocaleString("en-IN");
+total.toLocaleString(
+"en-IN",
+{
+maximumFractionDigits:2
+}
+);
 
+
+/*
+   Settlement
+*/
 
 calculateSettlement();
 
 }
 
 
-/* =========================
-SETTLEMENT
-========================= */
+/* =====================================================
+   SETTLEMENT
+===================================================== */
+
 
 function calculateSettlement(){
 
 const balance={};
 
+
 data.people.forEach(
 person=>{
 balance[person]=0;
-});
+}
+);
 
 
-data.expenses.forEach(expense=>{
+data.expenses.forEach(
+expense=>{
 
 const amount=
 Number(expense.amount);
 
-balance[expense.paidBy]+=amount;
+
+if(
+balance[expense.paidBy]===undefined
+){
+
+balance[expense.paidBy]=0;
+
+}
+
+
+balance[expense.paidBy]
++=amount;
+
 
 const share=
-amount/expense.split.length;
+amount/
+expense.split.length;
+
 
 expense.split.forEach(
 person=>{
-balance[person]-=share;
-});
+
+if(
+balance[person]===undefined
+){
+
+balance[person]=0;
+
+}
+
+
+balance[person]-=
+share;
+
+}
+);
 
 });
 
@@ -1278,7 +1828,9 @@ const debtors=[];
 const creditors=[];
 
 
-Object.entries(balance).forEach(
+Object.entries(
+balance
+).forEach(
 ([person,value])=>{
 
 if(value<-0.01){
@@ -1290,7 +1842,7 @@ person,
 
 }
 
-if(value>0.01){
+else if(value>0.01){
 
 creditors.push([
 person,
@@ -1310,7 +1862,7 @@ let j=0;
 
 
 while(
-i<debtors.length&&
+i<debtors.length &&
 j<creditors.length
 ){
 
@@ -1320,19 +1872,28 @@ debtors[i][1],
 creditors[j][1]
 );
 
+
 result.push(`
 
 <div class="settlement">
 
+<span>
+
 <b>
-${escapeHTML(debtors[i][0])}
+${escapeHTML(
+debtors[i][0]
+)}
 </b>
 
 owes
 
 <b>
-${escapeHTML(creditors[j][0])}
+${escapeHTML(
+creditors[j][0]
+)}
 </b>
+
+</span>
 
 <strong>
 
@@ -1350,58 +1911,103 @@ maximumFractionDigits:2
 `);
 
 
-debtors[i][1]-=amount;
+debtors[i][1]-=
+amount;
 
-creditors[j][1]-=amount;
+creditors[j][1]-=
+amount;
 
 
-if(debtors[i][1]<0.01)
+if(
+debtors[i][1]<0.01
+){
+
 i++;
-
-if(creditors[j][1]<0.01)
-j++;
 
 }
 
 
-document.getElementById("settlement")
-.innerHTML=
-result.length
-?
-result.join("")
-:
+if(
+creditors[j][1]<0.01
+){
+
+j++;
+
+}
+
+}
+
+
+if(result.length){
+
+document.getElementById(
+"settlement"
+).innerHTML=
+result.join("");
+
+}else{
+
+document.getElementById(
+"settlement"
+).innerHTML=
 `
 <div class="empty">
+
 🎉 Everyone is settled up!
+
 </div>
 `;
 
 }
 
+}
 
-/* =========================
-ESCAPE HTML
-========================= */
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
 
 function escapeHTML(text){
 
 return String(text)
-.replace(/&/g,"&amp;")
-.replace(/</g,"&lt;")
-.replace(/>/g,"&gt;")
-.replace(/"/g,"&quot;")
-.replace(/'/g,"&#039;");
+
+.replace(
+/&/g,
+"&amp;"
+)
+
+.replace(
+/</g,
+"&lt;"
+)
+
+.replace(
+/>/g,
+"&gt;"
+)
+
+.replace(
+/"/g,
+"&quot;"
+)
+
+.replace(
+/'/g,
+"&#039;"
+);
 
 }
 
 
-/* =========================
-START
-========================= */
+/* =====================================================
+   START APP
+===================================================== */
 
 loadTrip();
 
 </script>
 
 </body>
+
 </html>
