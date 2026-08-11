@@ -23,7 +23,7 @@ padding:0;
 body{
 font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
 background:#f5f6fb;
-color:#17171c;
+color:#18181c;
 }
 
 .container{
@@ -34,26 +34,26 @@ padding:18px 15px 50px;
 
 header{
 text-align:center;
-padding:25px 0 20px;
+padding:25px 0;
 }
 
 .logo{
-width:62px;
-height:62px;
+width:64px;
+height:64px;
 margin:auto;
 display:flex;
 align-items:center;
 justify-content:center;
-border-radius:19px;
+border-radius:20px;
 background:linear-gradient(135deg,#756cff,#5147df);
 color:white;
 font-size:21px;
 font-weight:800;
-box-shadow:0 12px 30px rgba(92,80,230,.28);
+box-shadow:0 12px 30px rgba(92,80,230,.25);
 }
 
 header h1{
-font-size:28px;
+font-size:29px;
 margin-top:13px;
 }
 
@@ -86,12 +86,12 @@ padding:0 14px;
 font-size:15px;
 background:#fafafd;
 outline:none;
-color:#17171c;
+color:#18181c;
 }
 
 input:focus,
 select:focus{
-border-color:#655ce8;
+border-color:#635bff;
 background:white;
 box-shadow:0 0 0 3px rgba(99,91,255,.08);
 }
@@ -111,10 +111,6 @@ background:#635bff;
 color:white;
 }
 
-.primary:active{
-transform:scale(.98);
-}
-
 .secondary{
 background:#efefff;
 color:#5148d9;
@@ -132,10 +128,6 @@ gap:9px;
 
 .row input{
 flex:1;
-}
-
-.row button{
-flex-shrink:0;
 }
 
 .share{
@@ -206,8 +198,8 @@ font-weight:600;
 
 .person span{
 margin-left:7px;
-font-size:17px;
 cursor:pointer;
+font-size:17px;
 }
 
 .expense{
@@ -393,33 +385,33 @@ placeholder="Enter trip name"
 
 <button
 class="primary share"
-onclick="shareTrip()"
+onclick="createOrShareTrip()"
 >
-🔗 Share Trip
+🔗 Create Trip & Share
 </button>
 
 <div
 id="shareSuccess"
 class="success"
 >
-✅ Trip link is ready to share!
-</div>
-
-<div class="notice">
-
-🔒 <b>View-only sharing</b><br>
-
-Anyone who has the link can see the expenses.
-
-Only the person with the owner PIN can add,
-change or delete expenses.
-
+✅ This is your permanent master trip link.
 </div>
 
 <div
 id="shareBox"
 class="share-box"
 ></div>
+
+<div class="notice">
+
+🔒 <b>View-only sharing</b><br>
+
+Anyone with the trip link can view the trip.
+
+Only the owner PIN can add people,
+add expenses, or delete expenses.
+
+</div>
 
 </div>
 
@@ -509,9 +501,7 @@ class="people"
 ></div>
 
 <div class="locked">
-
-🔐 Changes require the owner PIN.
-
+🔐 Owner PIN required for changes.
 </div>
 
 </div>
@@ -528,7 +518,7 @@ class="people"
 
 <input
 id="expenseName"
-placeholder="Expense name — Hotel, Food, Taxi..."
+placeholder="Hotel, Food, Taxi..."
 >
 
 <br><br>
@@ -665,129 +655,136 @@ Continue
 
 
 /* =====================================================
-   APP DATA
+   SUPABASE CONFIG
 ===================================================== */
 
+const SUPABASE_URL =
+"https://aolrexnnqldmuxcfutrt.supabase.co";
 
-let data={
+const SUPABASE_KEY =
+"sb_publishable_aPI-c6YWiVPQZla4zNx_9Q_TCbQtkaQ";
 
-tripName:"My Trip",
 
-people:[],
+/* =====================================================
+   APP STATE
+===================================================== */
 
-expenses:[],
+let trip = null;
 
-pinHash:""
+let people = [];
+
+let expenses = [];
+
+let unlocked = false;
+
+let pendingAction = null;
+
+
+/* =====================================================
+   SUPABASE REQUEST
+===================================================== */
+
+async function supabaseRequest(
+table,
+method = "GET",
+body = null,
+query = ""
+){
+
+const options = {
+
+method: method,
+
+headers: {
+
+"apikey":
+SUPABASE_KEY,
+
+"Authorization":
+"Bearer " + SUPABASE_KEY,
+
+"Content-Type":
+"application/json",
+
+"Prefer":
+"return=representation"
+
+}
 
 };
 
 
-let unlocked=false;
+if(body){
 
-let pendingAction=null;
+options.body =
+JSON.stringify(body);
 
-
-/* =====================================================
-   UTF-8 SAFE ENCODING
-===================================================== */
+}
 
 
-function encodeData(){
+const response =
+await fetch(
 
-const json=
-JSON.stringify(data);
+SUPABASE_URL +
+"/rest/v1/" +
+table +
+query,
 
-const bytes=
-new TextEncoder()
-.encode(json);
+options
 
-let binary="";
-
-for(
-let i=0;
-i<bytes.length;
-i++
-){
-
-binary+=String.fromCharCode(
-bytes[i]
 );
 
-}
 
-return btoa(binary)
-.replace(/\+/g,"-")
-.replace(/\//g,"_")
-.replace(/=/g,"");
+if(!response.ok){
 
-}
+const error =
+await response.text();
 
-
-function decodeData(value){
-
-let encoded=value
-.replace(/-/g,"+")
-.replace(/_/g,"/");
-
-while(
-encoded.length % 4 !== 0
-){
-
-encoded+="=";
+throw new Error(error);
 
 }
 
-const binary=
-atob(encoded);
 
-const bytes=
-new Uint8Array(
-binary.length
-);
+if(response.status === 204){
 
-for(
-let i=0;
-i<binary.length;
-i++
-){
-
-bytes[i]=
-binary.charCodeAt(i);
+return null;
 
 }
 
-const json=
-new TextDecoder()
-.decode(bytes);
 
-return JSON.parse(json);
+return response.json();
 
 }
 
 
 /* =====================================================
-   HASH PIN
+   GENERATE TRIP ID
 ===================================================== */
 
+function generateTripID(){
 
-async function hash(text){
+const characters =
+"ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 
-const buffer=
-await crypto.subtle.digest(
-"SHA-256",
-new TextEncoder().encode(text)
-);
+let id = "";
 
-const bytes=
-new Uint8Array(buffer);
+for(
+let i = 0;
+i < 8;
+i++
+){
 
-return Array.from(bytes)
-.map(
-byte =>
-byte.toString(16)
-.padStart(2,"0")
+id +=
+characters[
+Math.floor(
+Math.random() *
+characters.length
 )
-.join("");
+];
+
+}
+
+return id;
 
 }
 
@@ -796,153 +793,182 @@ byte.toString(16)
    LOAD TRIP
 ===================================================== */
 
+async function loadTrip(){
 
-function loadTrip(){
-
-const params=
+const params =
 new URLSearchParams(
 window.location.search
 );
 
-const trip=
+const tripID =
 params.get("trip");
 
 
-if(trip){
-
-try{
-
-data=
-decodeData(trip);
-
-}catch(error){
-
-console.error(error);
-
-alert(
-"This trip link is invalid or corrupted."
-);
-
-}
-
-}
-
-
-if(!data.tripName){
-
-data.tripName=
-"My Trip";
-
-}
-
-
-document.getElementById(
-"tripName"
-).value=
-data.tripName;
-
+if(!tripID){
 
 render();
-
-}
-
-
-/* =====================================================
-   SAVE TRIP
-===================================================== */
-
-
-function save(){
-
-const encoded=
-encodeData();
-
-
-const newURL=
-window.location.origin+
-window.location.pathname+
-"?trip="+
-encodeURIComponent(encoded);
-
-
-history.replaceState(
-null,
-"",
-newURL
-);
-
-
-/*
-   Important:
-   The page URL now contains
-   the entire trip.
-*/
-
-}
-
-
-/* =====================================================
-   PROTECTED ACTION
-===================================================== */
-
-
-function protectedAction(action){
-
-if(unlocked){
-
-action();
 
 return;
 
 }
 
 
-pendingAction=action;
+try{
+
+const trips =
+await supabaseRequest(
+
+"trips",
+
+"GET",
+
+null,
+
+"?id=eq." +
+encodeURIComponent(
+tripID
+)
+
+);
 
 
-if(data.pinHash){
+if(
+!trips ||
+!trips.length
+){
 
-document.getElementById(
-"pinTitle"
-).innerText=
-"🔐 Owner Access";
+alert(
+"Trip not found."
+);
 
-document.getElementById(
-"pinDescription"
-).innerText=
-"Enter the owner PIN to make changes to this trip.";
-
-}else{
-
-document.getElementById(
-"pinTitle"
-).innerText=
-"🔑 Create Owner PIN";
-
-document.getElementById(
-"pinDescription"
-).innerText=
-"Create a PIN. You will need this PIN whenever you want to edit or delete this trip.";
+return;
 
 }
 
 
+trip =
+trips[0];
+
+
+people =
+await supabaseRequest(
+
+"people",
+
+"GET",
+
+null,
+
+"?trip_id=eq." +
+encodeURIComponent(
+tripID
+) +
+"&order=id.asc"
+
+);
+
+
+expenses =
+await supabaseRequest(
+
+"expenses",
+
+"GET",
+
+null,
+
+"?trip_id=eq." +
+encodeURIComponent(
+tripID
+) +
+"&order=id.asc"
+
+);
+
+
+document.getElementById(
+"tripName"
+).value =
+trip.name;
+
+
+render();
+
+
+}catch(error){
+
+console.error(error);
+
+alert(
+"Unable to load the trip.\n\n" +
+error.message
+);
+
+}
+
+}
+
+
+/* =====================================================
+   CREATE OR SHARE
+===================================================== */
+
+function createOrShareTrip(){
+
+/*
+   If trip already exists,
+   DON'T create another one.
+   Share the same master link.
+*/
+
+if(trip){
+
+shareMasterLink();
+
+return;
+
+}
+
+
+/*
+   New trip requires PIN.
+*/
+
+pendingAction =
+createTripAfterPin;
+
+
+document.getElementById(
+"pinTitle"
+).innerText =
+"🔑 Create Owner PIN";
+
+
+document.getElementById(
+"pinDescription"
+).innerText =
+"Create a PIN. Only you should know this PIN. It protects editing and deleting.";
+
+
+document.getElementById(
+"pinInput"
+).value =
+"";
+
+
 document.getElementById(
 "pinModal"
-).style.display=
+).style.display =
 "flex";
 
 
-document.getElementById(
-"pinInput"
-).value="";
-
-
 setTimeout(
-()=>{
+function(){
+
 document.getElementById(
 "pinInput"
 ).focus();
+
 },
 100
 );
@@ -951,51 +977,20 @@ document.getElementById(
 
 
 /* =====================================================
-   CLOSE PIN
+   CREATE TRIP AFTER PIN
 ===================================================== */
 
+async function createTripAfterPin(){
 
-function closePin(){
-
-document.getElementById(
-"pinModal"
-).style.display=
-"none";
-
-document.getElementById(
-"pinInput"
-).value="";
-
-pendingAction=null;
-
-}
-
-
-/* =====================================================
-   VERIFY / CREATE PIN
-===================================================== */
-
-
-async function verifyPin(){
-
-const pin=
+const pin =
 document.getElementById(
 "pinInput"
 ).value.trim();
 
 
-if(!pin){
-
-alert(
-"Please enter a PIN."
-);
-
-return;
-
-}
-
-
-if(pin.length<4){
+if(
+pin.length < 4
+){
 
 alert(
 "Please use at least 4 digits."
@@ -1006,66 +1001,83 @@ return;
 }
 
 
-/*
-   Create first PIN
-*/
+const name =
+document.getElementById(
+"tripName"
+).value.trim()
+||
+"My Trip";
 
-if(!data.pinHash){
 
-data.pinHash=
-await hash(pin);
+const tripID =
+generateTripID();
 
-unlocked=true;
 
-save();
+try{
+
+const result =
+await supabaseRequest(
+
+"trips",
+
+"POST",
+
+{
+
+id:
+tripID,
+
+name:
+name,
+
+owner_pin:
+pin
+
+},
+
+"?select=*"
+
+);
+
+
+trip =
+result[0];
+
+people = [];
+
+expenses = [];
+
+unlocked = true;
+
+
+history.replaceState(
+
+null,
+
+"",
+
+"?trip=" +
+tripID
+
+);
+
 
 closePin();
 
-if(pendingAction){
+render();
 
-const action=
-pendingAction;
-
-pendingAction=null;
-
-action();
-
-}
-
-return;
-
-}
+shareMasterLink();
 
 
-/*
-   Check existing PIN
-*/
+}catch(error){
 
-const hashed=
-await hash(pin);
-
-
-if(hashed===data.pinHash){
-
-unlocked=true;
-
-closePin();
-
-if(pendingAction){
-
-const action=
-pendingAction;
-
-pendingAction=null;
-
-action();
-
-}
-
-}else{
+console.error(error);
 
 alert(
-"❌ Wrong PIN."
+
+"Could not create trip.\n\n" +
+error.message
+
 );
 
 }
@@ -1074,121 +1086,49 @@ alert(
 
 
 /* =====================================================
-   SHARE TRIP
+   SHARE MASTER LINK
 ===================================================== */
 
+async function shareMasterLink(){
 
-async function shareTrip(){
-
-/*
-   Save trip name first
-*/
-
-data.tripName=
-document.getElementById(
-"tripName"
-).value.trim()
-||
-"My Trip";
-
-
-/*
-   New trip needs PIN
-*/
-
-if(!data.pinHash){
-
-pendingAction=
-finishSharing;
-
-document.getElementById(
-"pinTitle"
-).innerText=
-"🔑 Create Owner PIN";
-
-document.getElementById(
-"pinDescription"
-).innerText=
-"Create an owner PIN first. This PIN will protect your trip from edits by other people.";
-
-document.getElementById(
-"pinModal"
-).style.display=
-"flex";
-
-document.getElementById(
-"pinInput"
-).value="";
-
-setTimeout(
-()=>{
-document.getElementById(
-"pinInput"
-).focus();
-},
-100
-);
+if(!trip){
 
 return;
 
 }
 
 
-finishSharing();
-
-}
-
-
-/* =====================================================
-   FINISH SHARING
-===================================================== */
-
-
-async function finishSharing(){
-
-data.tripName=
-document.getElementById(
-"tripName"
-).value.trim()
-||
-"My Trip";
+const link =
+window.location.origin +
+window.location.pathname +
+"?trip=" +
+trip.id;
 
 
 /*
-   Create the URL
+   Show permanent link
 */
-
-save();
-
-
-const link=
-window.location.href;
-
-
-/*
-   Display link on screen
-*/
-
-const box=
-document.getElementById(
-"shareBox"
-);
-
-box.style.display=
-"block";
-
-box.innerText=
-link;
-
 
 document.getElementById(
 "shareSuccess"
-).style.display=
+).style.display =
 "block";
 
 
+document.getElementById(
+"shareBox"
+).style.display =
+"block";
+
+
+document.getElementById(
+"shareBox"
+).innerText =
+link;
+
+
 /*
-   iPhone native share
+   iPhone Share Sheet
 */
 
 if(
@@ -1210,16 +1150,10 @@ link
 
 });
 
-
 }catch(error){
 
-/*
-   User cancelled share.
-   Don't show an error.
-*/
-
 console.log(
-"Share cancelled"
+"Share cancelled."
 );
 
 }
@@ -1237,7 +1171,6 @@ copyLink(link);
    COPY LINK
 ===================================================== */
 
-
 async function copyLink(link){
 
 try{
@@ -1247,13 +1180,13 @@ link
 );
 
 alert(
-"✅ Trip link copied!\n\nPaste it into WhatsApp, Messages or anywhere you want."
+"✅ Master trip link copied!"
 );
 
 }catch(error){
 
 prompt(
-"Copy this complete trip link:",
+"Copy this trip link:",
 link
 );
 
@@ -1263,11 +1196,160 @@ link
 
 
 /* =====================================================
+   PROTECTED ACTION
+===================================================== */
+
+function protectedAction(action){
+
+if(unlocked){
+
+action();
+
+return;
+
+}
+
+
+pendingAction = action;
+
+
+document.getElementById(
+"pinTitle"
+).innerText =
+"🔐 Owner Access";
+
+
+document.getElementById(
+"pinDescription"
+).innerText =
+"Enter the owner PIN to make changes to this trip.";
+
+
+document.getElementById(
+"pinInput"
+).value =
+"";
+
+
+document.getElementById(
+"pinModal"
+).style.display =
+"flex";
+
+
+setTimeout(
+function(){
+
+document.getElementById(
+"pinInput"
+).focus();
+
+},
+100
+);
+
+}
+
+
+/* =====================================================
+   VERIFY PIN
+===================================================== */
+
+async function verifyPin(){
+
+if(!trip){
+
+closePin();
+
+return;
+
+}
+
+
+const pin =
+document.getElementById(
+"pinInput"
+).value.trim();
+
+
+if(!pin){
+
+alert(
+"Please enter your PIN."
+);
+
+return;
+
+}
+
+
+if(
+pin === trip.owner_pin
+){
+
+unlocked = true;
+
+closePin();
+
+
+if(pendingAction){
+
+const action =
+pendingAction;
+
+pendingAction = null;
+
+await action();
+
+}
+
+}else{
+
+alert(
+"❌ Wrong PIN."
+);
+
+}
+
+}
+
+
+/* =====================================================
+   CLOSE PIN
+===================================================== */
+
+function closePin(){
+
+document.getElementById(
+"pinModal"
+).style.display =
+"none";
+
+
+document.getElementById(
+"pinInput"
+).value =
+"";
+
+}
+
+
+/* =====================================================
    ADD PERSON
 ===================================================== */
 
-
 function addPersonProtected(){
+
+if(!trip){
+
+alert(
+"First create the trip and share link."
+);
+
+return;
+
+}
+
 
 protectedAction(
 addPerson
@@ -1276,14 +1358,15 @@ addPerson
 }
 
 
-function addPerson(){
+async function addPerson(){
 
-const input=
+const input =
 document.getElementById(
 "personName"
 );
 
-const name=
+
+const name =
 input.value.trim();
 
 
@@ -1299,7 +1382,11 @@ return;
 
 
 if(
-data.people.includes(name)
+people.some(
+p =>
+p.name.toLowerCase() ===
+name.toLowerCase()
+)
 ){
 
 alert(
@@ -1311,13 +1398,49 @@ return;
 }
 
 
-data.people.push(name);
+try{
 
-input.value="";
+const result =
+await supabaseRequest(
 
-save();
+"people",
+
+"POST",
+
+{
+
+trip_id:
+trip.id,
+
+name:
+name
+
+},
+
+"?select=*"
+
+);
+
+
+people.push(
+result[0]
+);
+
+
+input.value = "";
+
 
 render();
+
+
+}catch(error){
+
+alert(
+"Could not add person.\n\n" +
+error.message
+);
+
+}
 
 }
 
@@ -1326,27 +1449,38 @@ render();
    REMOVE PERSON
 ===================================================== */
 
-
-function removePerson(index){
+function removePerson(id){
 
 protectedAction(
-()=>{
 
-const person=
-data.people[index];
+async function(){
+
+const person =
+people.find(
+p =>
+p.id === id
+);
 
 
-const used=
-data.expenses.some(
-expense =>
-expense.paidBy===person
+if(!person){
+
+return;
+
+}
+
+
+const used =
+expenses.some(
+e =>
+e.paid_by ===
+person.name
 );
 
 
 if(used){
 
 alert(
-"This person has expenses. Remove those expenses first."
+"This person has paid an expense. Delete that expense first."
 );
 
 return;
@@ -1354,16 +1488,42 @@ return;
 }
 
 
-data.people.splice(
-index,
-1
+try{
+
+await supabaseRequest(
+
+"people",
+
+"DELETE",
+
+null,
+
+"?id=eq." +
+id
+
 );
 
-save();
+
+people =
+people.filter(
+p =>
+p.id !== id
+);
+
 
 render();
 
+
+}catch(error){
+
+alert(
+"Could not remove person."
+);
+
 }
+
+}
+
 );
 
 }
@@ -1373,8 +1533,18 @@ render();
    ADD EXPENSE
 ===================================================== */
 
-
 function addExpenseProtected(){
+
+if(!trip){
+
+alert(
+"First create the trip."
+);
+
+return;
+
+}
+
 
 protectedAction(
 addExpense
@@ -1383,9 +1553,11 @@ addExpense
 }
 
 
-function addExpense(){
+async function addExpense(){
 
-if(data.people.length<2){
+if(
+people.length < 2
+){
 
 alert(
 "Please add at least 2 people first."
@@ -1396,13 +1568,13 @@ return;
 }
 
 
-const name=
+const description =
 document.getElementById(
 "expenseName"
 ).value.trim();
 
 
-const amount=
+const amount =
 Number(
 document.getElementById(
 "expenseAmount"
@@ -1410,20 +1582,20 @@ document.getElementById(
 );
 
 
-const paidBy=
+const paidBy =
 document.getElementById(
 "paidBy"
 ).value;
 
 
 if(
-!name ||
+!description ||
 !amount ||
 !paidBy
 ){
 
 alert(
-"Please enter expense, amount and payer."
+"Please fill in expense, amount and payer."
 );
 
 return;
@@ -1431,34 +1603,81 @@ return;
 }
 
 
-data.expenses.push({
+if(amount <= 0){
 
-name:name,
+alert(
+"Enter a valid amount."
+);
 
-amount:amount,
+return;
 
-paidBy:paidBy,
+}
 
-split:[
-...data.people
-]
 
-});
+try{
+
+const result =
+await supabaseRequest(
+
+"expenses",
+
+"POST",
+
+{
+
+trip_id:
+trip.id,
+
+description:
+description,
+
+amount:
+amount,
+
+paid_by:
+paidBy,
+
+split_between:
+people.map(
+p =>
+p.name
+)
+
+},
+
+"?select=*"
+
+);
+
+
+expenses.push(
+result[0]
+);
 
 
 document.getElementById(
 "expenseName"
-).value="";
+).value =
+"";
 
 
 document.getElementById(
 "expenseAmount"
-).value="";
+).value =
+"";
 
-
-save();
 
 render();
+
+
+}catch(error){
+
+alert(
+"Could not add expense.\n\n" +
+error.message
+);
+
+}
 
 }
 
@@ -1467,30 +1686,59 @@ render();
    DELETE EXPENSE
 ===================================================== */
 
-
-function deleteExpense(index){
+function deleteExpense(id){
 
 protectedAction(
-()=>{
+
+async function(){
 
 if(
-confirm(
+!confirm(
 "Are you sure you want to remove this expense?"
 )
 ){
 
-data.expenses.splice(
-index,
-1
+return;
+
+}
+
+
+try{
+
+await supabaseRequest(
+
+"expenses",
+
+"DELETE",
+
+null,
+
+"?id=eq." +
+id
+
 );
 
-save();
+
+expenses =
+expenses.filter(
+e =>
+e.id !== id
+);
+
 
 render();
 
+
+}catch(error){
+
+alert(
+"Could not delete expense."
+);
+
 }
 
 }
+
 );
 
 }
@@ -1500,61 +1748,49 @@ render();
    RENDER
 ===================================================== */
 
-
 function render(){
-
-
-/*
-   Trip
-*/
-
-document.getElementById(
-"tripName"
-).value=
-data.tripName;
-
-
-/*
-   Stats
-*/
 
 document.getElementById(
 "peopleCount"
-).innerText=
-data.people.length;
+).innerText =
+people.length;
 
 
 document.getElementById(
 "expenseCount"
-).innerText=
-data.expenses.length;
+).innerText =
+expenses.length;
 
 
 /*
-   People
+   PEOPLE
 */
 
-let peopleHTML="";
+let peopleHTML = "";
 
 
-data.people.forEach(
-(person,index)=>{
+people.forEach(
+person => {
 
-peopleHTML+=`
+peopleHTML += `
 
 <div class="person">
 
-${escapeHTML(person)}
+${escapeHTML(
+person.name
+)}
 
 ${
 unlocked
 ?
 `
+
 <span
-onclick="removePerson(${index})"
+onclick="removePerson(${person.id})"
 >
 ×
 </span>
+
 `
 :
 ""
@@ -1569,7 +1805,7 @@ onclick="removePerson(${index})"
 
 if(!peopleHTML){
 
-peopleHTML=`
+peopleHTML = `
 
 <div class="empty">
 
@@ -1584,69 +1820,72 @@ Add everyone joining the trip.
 
 document.getElementById(
 "people"
-).innerHTML=
+).innerHTML =
 peopleHTML;
 
 
 /*
-   Paid by
+   PAYER SELECT
 */
 
-const select=
+const select =
 document.getElementById(
 "paidBy"
 );
 
 
-select.innerHTML=
-`
+select.innerHTML = `
+
 <option value="">
 Who paid?
 </option>
+
 `;
 
 
-data.people.forEach(
-person=>{
+people.forEach(
+person => {
 
-const option=
+const option =
 document.createElement(
 "option"
 );
 
-option.value=
-person;
+option.value =
+person.name;
 
-option.textContent=
-person;
+option.textContent =
+person.name;
 
 select.appendChild(
 option
 );
 
-}
-);
+});
 
 
 /*
-   Expenses
+   EXPENSES
 */
 
-let expenseHTML="";
+let expenseHTML = "";
 
-let total=0;
-
-
-data.expenses.forEach(
-(expense,index)=>{
-
-const amount=
-Number(expense.amount);
-
-total+=amount;
+let total = 0;
 
 
-expenseHTML+=`
+expenses.forEach(
+expense => {
+
+const amount =
+Number(
+expense.amount
+);
+
+
+total += amount;
+
+
+expenseHTML += `
 
 <div class="expense">
 
@@ -1655,7 +1894,7 @@ expenseHTML+=`
 <div class="expense-title">
 
 ${escapeHTML(
-expense.name
+expense.description
 )}
 
 </div>
@@ -1664,13 +1903,13 @@ expense.name
 
 Paid by
 ${escapeHTML(
-expense.paidBy
+expense.paid_by
 )}
 
 <br>
 
 Split between
-${expense.split.length}
+${expense.split_between.length}
 people
 
 </div>
@@ -1691,17 +1930,22 @@ maximumFractionDigits:2
 
 </div>
 
+
 ${
 unlocked
 ?
+
 `
+
 <button
 class="danger delete"
-onclick="deleteExpense(${index})"
+onclick="deleteExpense(${expense.id})"
 >
 Delete
 </button>
+
 `
+
 :
 ""
 }
@@ -1717,13 +1961,14 @@ Delete
 
 if(!expenseHTML){
 
-expenseHTML=
-`
+expenseHTML = `
+
 <div class="empty">
 
 No expenses yet.
 
 </div>
+
 `;
 
 }
@@ -1731,18 +1976,18 @@ No expenses yet.
 
 document.getElementById(
 "expenses"
-).innerHTML=
+).innerHTML =
 expenseHTML;
 
 
 /*
-   Total
+   TOTAL
 */
 
 document.getElementById(
 "total"
-).innerText=
-"₹"+
+).innerText =
+"₹" +
 total.toLocaleString(
 "en-IN",
 {
@@ -1752,7 +1997,7 @@ maximumFractionDigits:2
 
 
 /*
-   Settlement
+   SETTLEMENT
 */
 
 calculateSettlement();
@@ -1764,88 +2009,100 @@ calculateSettlement();
    SETTLEMENT
 ===================================================== */
 
-
 function calculateSettlement(){
 
-const balance={};
+const balance = {};
 
 
-data.people.forEach(
-person=>{
-balance[person]=0;
-}
-);
+people.forEach(
+person => {
 
-
-data.expenses.forEach(
-expense=>{
-
-const amount=
-Number(expense.amount);
-
-
-if(
-balance[expense.paidBy]===undefined
-){
-
-balance[expense.paidBy]=0;
-
-}
-
-
-balance[expense.paidBy]
-+=amount;
-
-
-const share=
-amount/
-expense.split.length;
-
-
-expense.split.forEach(
-person=>{
-
-if(
-balance[person]===undefined
-){
-
-balance[person]=0;
-
-}
-
-
-balance[person]-=
-share;
-
-}
-);
+balance[
+person.name
+] = 0;
 
 });
 
 
-const debtors=[];
+expenses.forEach(
+expense => {
 
-const creditors=[];
+const amount =
+Number(
+expense.amount
+);
+
+
+if(
+balance[
+expense.paid_by
+] === undefined
+){
+
+balance[
+expense.paid_by
+] = 0;
+
+}
+
+
+balance[
+expense.paid_by
+] += amount;
+
+
+const share =
+amount /
+expense.split_between.length;
+
+
+expense.split_between.forEach(
+person => {
+
+if(
+balance[person] === undefined
+){
+
+balance[person] = 0;
+
+}
+
+
+balance[person] -= share;
+
+});
+
+});
+
+
+const debtors = [];
+
+const creditors = [];
 
 
 Object.entries(
 balance
 ).forEach(
-([person,value])=>{
+([name,value]) => {
 
-if(value<-0.01){
+if(
+value < -0.01
+){
 
 debtors.push([
-person,
+name,
 -value
 ]);
 
 }
 
-else if(value>0.01){
+
+if(
+value > 0.01
+){
 
 creditors.push([
-person,
+name,
 value
 ]);
 
@@ -1854,19 +2111,19 @@ value
 });
 
 
-const result=[];
+let result = [];
 
-let i=0;
+let i = 0;
 
-let j=0;
+let j = 0;
 
 
 while(
-i<debtors.length &&
-j<creditors.length
+i < debtors.length &&
+j < creditors.length
 ){
 
-const amount=
+const amount =
 Math.min(
 debtors[i][1],
 creditors[j][1]
@@ -1911,15 +2168,15 @@ maximumFractionDigits:2
 `);
 
 
-debtors[i][1]-=
+debtors[i][1] -=
 amount;
 
-creditors[j][1]-=
+creditors[j][1] -=
 amount;
 
 
 if(
-debtors[i][1]<0.01
+debtors[i][1] < 0.01
 ){
 
 i++;
@@ -1928,7 +2185,7 @@ i++;
 
 
 if(
-creditors[j][1]<0.01
+creditors[j][1] < 0.01
 ){
 
 j++;
@@ -1942,20 +2199,21 @@ if(result.length){
 
 document.getElementById(
 "settlement"
-).innerHTML=
+).innerHTML =
 result.join("");
 
 }else{
 
 document.getElementById(
 "settlement"
-).innerHTML=
-`
+).innerHTML = `
+
 <div class="empty">
 
 🎉 Everyone is settled up!
 
 </div>
+
 `;
 
 }
@@ -1966,7 +2224,6 @@ document.getElementById(
 /* =====================================================
    ESCAPE HTML
 ===================================================== */
-
 
 function escapeHTML(text){
 
@@ -2001,7 +2258,7 @@ return String(text)
 
 
 /* =====================================================
-   START APP
+   START
 ===================================================== */
 
 loadTrip();
